@@ -1,5 +1,6 @@
 import { parseArgs } from "node:util";
-import { neon } from "@neondatabase/serverless";
+
+import { connect } from "./db.mjs";
 
 const { values } = parseArgs({
   options: {
@@ -22,17 +23,17 @@ if (!values.name || !values.url) {
   process.exit(1);
 }
 
-const url = process.env.DATABASE_URL;
-if (!url) throw new Error("DATABASE_URL is not set (add it to .env.local)");
-const sql = neon(url);
-
 const tags = values.tags ? values.tags.split(",").map((t) => t.trim()).filter(Boolean) : [];
-const [row] = await sql`
-  INSERT INTO stores (name, url, role, summary, tags, image_url, period, sort_order)
-  VALUES (${values.name}, ${values.url}, ${values.role ?? null}, ${values.summary ?? null},
-          ${tags}, ${values.image ?? null}, ${values.period ?? null}, ${Number(values.order)})
-  RETURNING id
-`;
+const client = await connect();
+const { rows } = await client.query(
+  `INSERT INTO stores (name, url, role, summary, tags, image_url, period, sort_order)
+   VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+   RETURNING id`,
+  [values.name, values.url, values.role ?? null, values.summary ?? null, tags, values.image ?? null,
+   values.period ?? null, Number(values.order)],
+);
+await client.end();
+const row = rows[0];
 console.log(`Added store #${row.id}: ${values.name}`);
 
 const site = process.env.NEXT_PUBLIC_SITE_URL;
