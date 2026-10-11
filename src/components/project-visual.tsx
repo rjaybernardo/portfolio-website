@@ -11,7 +11,7 @@ const sampleDiff = [
   { field: "Status", before: "Draft", after: "Active" },
 ];
 
-// `fill` stretches the visual to its parent (dashboard thumbnails); otherwise it keeps a 16:10 frame.
+// `fill` stretches the visual to its parent (home page thumbnails); otherwise it keeps a 16:10 frame.
 export function ProjectVisual({
   project,
   priority,
@@ -40,7 +40,7 @@ export function ProjectVisual({
   const rows = fill ? sampleDiff.slice(0, 2) : sampleDiff;
   return (
     <div
-      className={`${frame} flex flex-col justify-center gap-1.5 bg-accent-soft font-mono ${fill ? "p-3 text-[10px] dash-short:[&>div:nth-child(n+2)]:hidden" : "gap-2 p-5 text-[11px] sm:p-8 sm:text-xs"}`}
+      className={`${frame} flex flex-col justify-center gap-1.5 bg-accent-soft font-mono ${fill ? "p-3 text-[10px]" : "gap-2 p-5 text-[11px] sm:p-8 sm:text-xs"}`}
     >
       {!fill && <p className="mb-1 text-muted">Preview · vendor = &quot;RGB Leather&quot; · −20 %, round to .99</p>}
       {rows.map((row) => (

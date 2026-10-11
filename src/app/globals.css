@@ -1,11 +1,5 @@
 @import "tailwindcss";
 
-/* The one-screen dashboard layout only kicks in on landscape screens with room
-   for it; narrower or shorter viewports get a stacked, scrolling page instead. */
-@custom-variant dash (@media (min-width: 1024px) and (min-height: 620px) and (orientation: landscape));
-/* Dashboard on a short screen (e.g. 1280×720): secondary text is trimmed so nothing gets clipped. */
-@custom-variant dash-short (@media (min-width: 1024px) and (min-height: 620px) and (max-height: 859px) and (orientation: landscape));
-
 :root {
   /* Warm, light-only palette: cream background, white cards, terracotta accent. */
   color-scheme: light;
