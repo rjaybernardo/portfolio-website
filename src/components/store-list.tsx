@@ -7,49 +7,46 @@ export async function StoreList() {
 
   if (stores.length === 0) {
     return (
-      <p className="rounded-xl border border-dashed border-line px-6 py-10 text-center text-muted">
+      <p className="grid h-full min-h-28 place-items-center rounded-xl border border-dashed border-line px-4 text-center text-sm text-muted">
         Recent store work is being added.
       </p>
     );
   }
 
   return (
-    <ul className="grid gap-4 sm:grid-cols-2">
+    <ul className="flex flex-col gap-1">
       {stores.map((store) => (
         <li key={store.id}>
           <a
             href={store.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface transition-colors hover:border-accent"
+            title={store.summary ?? undefined}
+            className="group flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-surface-2"
           >
-            {store.image_url && (
+            {store.image_url ? (
               <Image
                 src={store.image_url}
-                alt={`${store.name} storefront`}
-                width={960}
-                height={600}
+                alt=""
+                width={96}
+                height={60}
                 unoptimized
-                className="aspect-[16/10] w-full border-b border-line object-cover object-top"
+                className="h-10 w-16 shrink-0 rounded-md border border-line object-cover object-top"
               />
+            ) : (
+              <span className="grid h-10 w-16 shrink-0 place-items-center rounded-md bg-accent-soft font-semibold text-accent">
+                {store.name.charAt(0)}
+              </span>
             )}
-            <div className="flex flex-1 flex-col gap-2 p-5">
-              <div className="flex items-baseline justify-between gap-3">
-                <h3 className="font-medium group-hover:text-accent">{store.name} ↗</h3>
-                {store.period && <span className="shrink-0 text-sm text-muted">{store.period}</span>}
-              </div>
-              {store.role && <p className="text-sm text-accent">{store.role}</p>}
-              {store.summary && <p className="text-sm leading-relaxed text-muted">{store.summary}</p>}
-              {store.tags.length > 0 && (
-                <ul className="mt-auto flex flex-wrap gap-1.5 pt-2">
-                  {store.tags.map((tag) => (
-                    <li key={tag} className="rounded-full border border-line px-2.5 py-0.5 text-xs text-muted">
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+            <span className="min-w-0 flex-1">
+              <span className="flex items-baseline justify-between gap-2">
+                <span className="truncate text-sm font-medium group-hover:text-accent">{store.name} ↗</span>
+                {store.period && <span className="shrink-0 font-mono text-[11px] text-muted">{store.period}</span>}
+              </span>
+              <span className="block truncate text-xs text-muted">
+                {[store.role, ...store.tags].filter(Boolean).join(" · ")}
+              </span>
+            </span>
           </a>
         </li>
       ))}

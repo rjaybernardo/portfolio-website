@@ -1,4 +1,4 @@
-// "How I work" content on the home page. Each step is drawn from how the four apps were built.
+// "How I work" content on the home page. Each step is drawn from how the apps were built.
 export const processSteps = [
   {
     step: "01",
@@ -35,7 +35,7 @@ export const processSteps = [
 export const toolkit = [
   {
     group: "Shopify APIs",
-    items: ["Admin GraphQL (2026-07)", "Bulk Operations", "Carrier Service", "Discounts", "Customer Segments", "Webhooks"],
+    items: ["Admin GraphQL (2026-07)", "Bulk Operations", "Carrier Service", "Discounts", "Customer Segments", "Returns", "App Proxy", "Webhooks"],
   },
   {
     group: "App platform",

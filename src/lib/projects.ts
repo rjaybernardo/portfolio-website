@@ -7,6 +7,9 @@ import discount04 from "@/content/screenshots/smart-discount-manager-04.png";
 import forecast01 from "@/content/screenshots/inventory-forecasting-01.png";
 import forecast02 from "@/content/screenshots/inventory-forecasting-02.png";
 import forecast03 from "@/content/screenshots/inventory-forecasting-03.png";
+import returns01 from "@/content/screenshots/returns-management-01.png";
+import returns02 from "@/content/screenshots/returns-management-02.png";
+import returns03 from "@/content/screenshots/returns-management-03.png";
 import shipping01 from "@/content/screenshots/shipping-cost-optimizer-01.png";
 import shipping02 from "@/content/screenshots/shipping-cost-optimizer-02.png";
 import shipping03 from "@/content/screenshots/shipping-cost-optimizer-03.png";
@@ -176,6 +179,55 @@ export const projects: Project[] = [
       { src: shipping02, alt: "Rate calculator", caption: "Rate calculator: test a package and destination before shoppers see it." },
       { src: shipping03, alt: "Carrier rules page", caption: "Carrier rules: change which carrier wins or what shoppers pay." },
       { src: shipping04, alt: "Settings page", caption: "Settings: checkout, locations, rate source, carriers, routing and pricing." },
+    ],
+  },
+  {
+    slug: "returns-management",
+    name: "Returns Management System",
+    tagline:
+      "Handles returns end to end: customers request a return from a self-service portal on the store, and the merchant approves, labels, receives and refunds it from one queue.",
+    problem:
+      "Handling returns by hand means answering emails, checking order dates, making shipping labels, and remembering to refund and restock once the parcel arrives.",
+    highlights: ["Returns API", "Self-service portal", "Auto refund & restock"],
+    features: [
+      {
+        title: "Return portal",
+        body: "Customers enter their order number and checkout email in a portal rendered inside the store's theme through an app proxy, then pick items, quantities and reasons.",
+      },
+      {
+        title: "One-click approval",
+        body: "Approving buys a prepaid return label, attaches the tracking to the return in Shopify and emails the label to the customer.",
+      },
+      {
+        title: "Receive & refund",
+        body: "Marking a return received refunds the original payment method and restocks the items, if those settings are on.",
+      },
+      {
+        title: "Dashboard",
+        body: "Returns and open returns, refunded total, average time to approve and to refund, label spend, daily volume, top reasons and most returned products.",
+      },
+    ],
+    howItWorks: [
+      {
+        title: "Status flow",
+        body: "Requested → Approved → Label sent → Received → Refunded, or Declined. A status only moves forward, so webhook echoes of the app's own actions can't roll a return back.",
+      },
+      {
+        title: "Portal security",
+        body: "An unknown order and a wrong email give the same error; after lookup, an HMAC-SHA256 token valid for 30 minutes ties the next step to that order, and quantities are capped at Shopify's returnable quantity.",
+      },
+      {
+        title: "Refunds",
+        body: "The amount comes from Shopify's suggested financial outcome for the returned items, refunded to the original payment methods.",
+      },
+    ],
+    stack: ["TypeScript", "React Router 7", "Polaris web components", "Prisma", "Admin GraphQL 2026-07", "EasyPost", "Resend"],
+    scopes: ["read_orders", "write_returns", "read_locations"],
+    repo: "https://github.com/rjaybernardo/shopify-RMS",
+    screenshots: [
+      { src: returns01, alt: "Returns dashboard", caption: "Dashboard: returns, refunds, approval and refund times, label spend and the status pipeline." },
+      { src: returns02, alt: "Returns list with search and status filter", caption: "Returns: search by order, return, customer or tracking number, filtered by status." },
+      { src: returns03, alt: "Settings page", caption: "Settings: return policy, notifications, portal link and integration status." },
     ],
   },
   {

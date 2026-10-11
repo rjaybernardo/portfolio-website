@@ -1,30 +1,43 @@
 @import "tailwindcss";
 
+/* The one-screen dashboard layout only kicks in on landscape screens with room
+   for it; narrower or shorter viewports get a stacked, scrolling page instead. */
+@custom-variant dash (@media (min-width: 1024px) and (min-height: 620px) and (orientation: landscape));
+/* Dashboard on a short screen (e.g. 1280×720): secondary text is trimmed so nothing gets clipped. */
+@custom-variant dash-short (@media (min-width: 1024px) and (min-height: 620px) and (max-height: 859px) and (orientation: landscape));
+
 :root {
-  --background: #f6f5f1;
+  --background: #f3f4f1;
   --surface: #ffffff;
-  --foreground: #17191a;
-  --muted: #5f6461;
-  --line: #e2e0d9;
-  --accent: #1d6b48;
-  --accent-soft: #e3efe7;
+  --surface-2: #f7f8f6;
+  --foreground: #141716;
+  --muted: #646a66;
+  --line: #e3e5e0;
+  --accent: #15803d;
+  --accent-soft: #e4f2e8;
+  --glow-1: rgba(34, 197, 94, 0.14);
+  --glow-2: rgba(56, 189, 248, 0.1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f1110;
-    --surface: #171a18;
-    --foreground: #ecebe6;
-    --muted: #9a9f9b;
-    --line: #2a2e2b;
-    --accent: #6fcf9a;
-    --accent-soft: #1b2a21;
+    --background: #0a0c0b;
+    --surface: #121614;
+    --surface-2: #171c19;
+    --foreground: #eceeea;
+    --muted: #949b96;
+    --line: #232a26;
+    --accent: #5ee08f;
+    --accent-soft: #15261c;
+    --glow-1: rgba(34, 197, 94, 0.12);
+    --glow-2: rgba(56, 189, 248, 0.07);
   }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-line: var(--line);
@@ -32,7 +45,6 @@
   --color-accent-soft: var(--accent-soft);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-serif: var(--font-serif);
 }
 
 html {
@@ -40,11 +52,39 @@ html {
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(60rem 40rem at 0% 0%, var(--glow-1), transparent 60%),
+    radial-gradient(50rem 40rem at 100% 100%, var(--glow-2), transparent 60%),
+    var(--background);
+  background-attachment: fixed;
   color: var(--foreground);
 }
 
 ::selection {
   background: var(--accent);
   color: var(--background);
+}
+
+/* Panels that may scroll internally on the dashboard keep a thin, quiet scrollbar. */
+.scroll-quiet {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+/* Panels fade up in a short stagger on load. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.rise {
+  animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
 }
