@@ -18,6 +18,8 @@
   --accent: #c2410c;
   --accent-strong: #9a3412;
   --accent-soft: #fdebdd;
+  /* Deep espresso for the hero card, the one dark surface on the page. */
+  --ink: #24190f;
   --glow-1: rgba(251, 146, 60, 0.16);
   --glow-2: rgba(245, 158, 11, 0.1);
 }
@@ -32,6 +34,7 @@
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
+  --color-ink: var(--ink);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

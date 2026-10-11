@@ -68,3 +68,26 @@ export async function StoreList() {
     </ul>
   );
 }
+
+// Store names only, for the "worked on" line in the hero.
+export async function ClientNames() {
+  const stores = await getStores();
+  if (stores.length === 0) return null;
+
+  return (
+    <ul className="flex flex-wrap items-center gap-x-4 gap-y-1">
+      {stores.map((store) => (
+        <li key={store.id}>
+          <a
+            href={store.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium whitespace-nowrap text-white/70 transition-colors hover:text-white"
+          >
+            {store.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}

@@ -1,7 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { ProjectVisual } from "@/components/project-visual";
-import { StoreList } from "@/components/store-list";
+import { ClientNames, StoreList } from "@/components/store-list";
 import { processSteps, skills, toolkit } from "@/lib/process";
 import { projects } from "@/lib/projects";
 import { site } from "@/lib/site";
@@ -21,12 +22,14 @@ function Icon({ d, className = "size-4" }: { d: string; className?: string }) {
 }
 
 function Panel({
+  id,
   title,
   meta,
   className = "",
   delay = 0,
   children,
 }: {
+  id?: string;
   title: string;
   meta?: React.ReactNode;
   className?: string;
@@ -35,8 +38,9 @@ function Panel({
 }) {
   return (
     <section
+      id={id}
       style={{ animationDelay: `${delay}ms` }}
-      className={`rise flex min-h-0 flex-col rounded-2xl border border-line bg-surface/85 p-4 shadow-sm shadow-orange-950/[0.03] backdrop-blur ${className}`}
+      className={`rise flex min-h-0 scroll-mt-4 flex-col rounded-2xl border border-line bg-surface/85 p-4 shadow-sm shadow-orange-950/[0.03] backdrop-blur ${className}`}
     >
       <header className="mb-3 flex items-baseline justify-between gap-3">
         <h2 className="text-sm font-semibold tracking-tight">{title}</h2>
@@ -49,57 +53,47 @@ function Panel({
 
 export default function Home() {
   return (
-    <main className="mx-auto flex max-w-[1680px] flex-col gap-3 p-3 sm:p-4 dash:grid dash:h-dvh dash:grid-cols-12 dash:grid-rows-[auto_minmax(0,1.3fr)_minmax(0,1fr)] dash:overflow-hidden">
+    <main className="mx-auto flex max-w-[1680px] flex-col gap-3 p-3 sm:p-4 dash:grid dash:h-dvh dash:grid-cols-12 dash:grid-rows-[auto_minmax(0,1.7fr)_minmax(0,1fr)] dash:overflow-hidden">
       {/* Profile sidebar */}
       <aside className="rise flex min-h-0 flex-col gap-5 rounded-2xl border border-line bg-surface/85 p-5 shadow-sm shadow-orange-950/[0.03] backdrop-blur dash:col-span-3 dash:row-span-3">
-        <div className="flex items-center gap-3">
-          <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#c2410c] to-[#f59e0b] text-lg font-semibold text-white shadow-md shadow-orange-700/20">
-            {initials}
-          </span>
+        <div className="flex items-center gap-4">
+          {site.photo ? (
+            <Image
+              src={site.photo}
+              alt={site.name}
+              width={160}
+              height={160}
+              preload
+              className="size-20 shrink-0 rounded-2xl object-cover shadow-lg ring-4 shadow-orange-700/20 ring-accent-soft dash-short:size-16"
+            />
+          ) : (
+            <span className="grid size-20 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#c2410c] to-[#f59e0b] text-2xl font-semibold text-white shadow-lg ring-4 shadow-orange-700/20 ring-accent-soft dash-short:size-16 dash-short:text-xl">
+              {initials}
+            </span>
+          )}
           <div className="min-w-0">
-            <h1 className="truncate text-base font-semibold tracking-tight">{site.name}</h1>
-            <p className="flex items-center gap-1.5 text-sm text-muted">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:hidden" />
-                <span className="relative inline-flex size-2 rounded-full bg-accent" />
-              </span>
-              {site.role}
-            </p>
+            <h1 className="text-lg leading-tight font-semibold tracking-tight">{site.name}</h1>
+            <p className="mt-1 text-sm font-medium text-accent">{site.role}</p>
+            <div className="mt-2 flex gap-1.5">
+              <a
+                href={site.github}
+                className="rounded-lg border border-line bg-surface px-2 py-1 text-xs font-medium transition-colors hover:border-accent hover:text-accent"
+              >
+                GitHub ↗
+              </a>
+              {site.linkedin && (
+                <a
+                  href={site.linkedin}
+                  className="rounded-lg border border-line bg-surface px-2 py-1 text-xs font-medium transition-colors hover:border-accent hover:text-accent"
+                >
+                  LinkedIn ↗
+                </a>
+              )}
+            </div>
           </div>
         </div>
 
-        <div>
-          <p className="text-[1.35rem] leading-snug font-semibold tracking-tight">
-            Shopify apps and storefronts that take the busywork off a merchant&apos;s plate.
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-muted">{site.intro}</p>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {site.email && (
-            <a
-              href={`mailto:${site.email}`}
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-medium text-white shadow-sm shadow-orange-800/20 transition-colors hover:bg-accent-strong"
-            >
-              <Icon d="M3 6h18v12H3zM3 7l9 6 9-6" />
-              Get in touch
-            </a>
-          )}
-          <a
-            href={site.github}
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-surface px-4 py-2.5 text-sm font-medium transition-colors hover:border-accent"
-          >
-            GitHub ↗
-          </a>
-          {site.linkedin && (
-            <a
-              href={site.linkedin}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-surface px-4 py-2.5 text-sm font-medium transition-colors hover:border-accent"
-            >
-              LinkedIn ↗
-            </a>
-          )}
-        </div>
+        <p className="text-sm leading-relaxed text-muted dash-short:line-clamp-4">{site.intro}</p>
 
         <div className="scroll-quiet flex min-h-0 flex-1 flex-col gap-4 border-t border-line pt-4 pb-6 dash:overflow-y-auto dash:[mask-image:linear-gradient(to_bottom,black_calc(100%-2.5rem),transparent)]">
           {toolkit.map((t) => (
@@ -116,31 +110,78 @@ export default function Home() {
           ))}
         </div>
 
-        {site.email && <p className="truncate font-mono text-[11px] text-muted">{site.email}</p>}
+        {site.email && (
+          <a href={`mailto:${site.email}`} className="truncate font-mono text-[11px] text-muted hover:text-accent">
+            {site.email}
+          </a>
+        )}
       </aside>
 
-      {/* Skills */}
-      <ul aria-label="Skills" className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5 dash:col-span-9">
-        {skills.map((skill, i) => (
-          <li
-            key={skill.title}
-            title={skill.body}
-            style={{ animationDelay: `${60 + i * 40}ms` }}
-            className="rise flex flex-col gap-2 rounded-2xl border border-line bg-surface/90 p-3.5 shadow-sm shadow-orange-950/[0.03] backdrop-blur"
-          >
-            <div className="flex items-center gap-2.5">
-              <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
-                <Icon d={skill.icon} />
-              </span>
-              <h2 className="truncate text-sm font-semibold tracking-tight">{skill.title}</h2>
-            </div>
-            <p className="text-xs leading-snug text-muted dash-short:hidden">{skill.body}</p>
-          </li>
-        ))}
-      </ul>
+      {/* Hero: the one dark card, so the eye lands here first */}
+      <section
+        style={{ animationDelay: "60ms" }}
+        className="rise relative isolate order-first overflow-hidden rounded-2xl bg-ink p-6 dash:order-none text-white shadow-xl shadow-orange-950/15 dash:col-span-9 dash:px-6 dash:py-5"
+      >
+        <span aria-hidden className="pointer-events-none absolute -top-24 -right-16 -z-10 size-96 rounded-full bg-[#ea580c]/35 blur-3xl" />
+        <span aria-hidden className="pointer-events-none absolute -bottom-32 left-1/3 -z-10 size-80 rounded-full bg-[#f59e0b]/15 blur-3xl" />
+
+        <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80 dash-short:hidden">
+          <span className="relative flex size-2">
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#fb923c] opacity-70 motion-reduce:hidden" />
+            <span className="relative inline-flex size-2 rounded-full bg-[#fb923c]" />
+          </span>
+          Available for Shopify projects and roles
+        </p>
+        <p className="mt-3 max-w-4xl text-3xl leading-[1.1] font-semibold tracking-tight text-balance xl:text-[2.4rem] dash-short:mt-0 dash-short:text-[1.9rem]">
+          Shopify stores and apps that take the{" "}
+          <span className="bg-gradient-to-r from-[#fb923c] to-[#fcd34d] bg-clip-text text-transparent">busywork</span> off a
+          merchant&apos;s plate.
+        </p>
+
+        <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex shrink-0 flex-wrap gap-2">
+            {site.email && (
+              <a
+                href={`mailto:${site.email}`}
+                className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-orange-600/30 transition-colors hover:bg-[#ea580c]"
+              >
+                <Icon d="M3 6h18v12H3zM3 7l9 6 9-6" />
+                Get in touch
+              </a>
+            )}
+            <a
+              href="#apps"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10 dash-short:hidden"
+            >
+              See my apps ↓
+            </a>
+          </div>
+
+          {/* Services */}
+          <ul aria-label="Services" className="flex flex-wrap gap-1.5 lg:justify-end">
+            {skills.map((skill) => (
+              <li
+                key={skill.title}
+                title={skill.body}
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.06] py-1 pr-3 pl-1.5 text-xs font-medium text-white/90"
+              >
+                <span className="grid size-5 place-items-center rounded-full bg-[#ea580c]/25 text-[#fdba74]">
+                  <Icon d={skill.icon} className="size-3" />
+                </span>
+                {skill.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-3 sm:flex-row sm:items-center sm:gap-5">
+          <p className="shrink-0 font-mono text-[11px] tracking-widest text-white/45 uppercase">Stores I&apos;ve worked on</p>
+          <ClientNames />
+        </div>
+      </section>
 
       {/* Apps */}
-      <Panel title="Apps" meta="Embedded admin apps · open one for the case study" delay={200} className="dash:col-span-9">
+      <Panel id="apps" title="Apps" meta="Embedded admin apps · open one for the case study" delay={200} className="dash:col-span-9">
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 dash:h-full dash:grid-rows-2">
           {projects.map((project, i) => (
             <li key={project.slug} className="min-h-0">
@@ -198,7 +239,7 @@ export default function Home() {
             <li key={s.step} title={s.body} className="flex min-h-0 gap-3 overflow-hidden rounded-xl bg-surface-2 p-3 dash-short:items-center dash-short:py-2">
               <span className="font-mono text-xs text-accent dash-short:self-start dash-short:pt-0.5">{s.step}</span>
               <div className="min-w-0">
-                <h3 className="text-sm leading-snug font-medium">{s.title}</h3>
+                <h3 className="text-sm leading-snug font-medium dash-short:truncate">{s.title}</h3>
                 <p className="mt-0.5 line-clamp-2 text-xs leading-relaxed text-muted dash-short:hidden">{s.body}</p>
               </div>
             </li>

@@ -63,15 +63,23 @@ export const skills = [
 
 export const toolkit = [
   {
+    group: "Front end",
+    items: ["HTML", "CSS", "JavaScript (ES6+)", "TypeScript", "React", "Tailwind CSS", "Sass", "Responsive design", "Accessibility (WCAG)"],
+  },
+  {
+    group: "Shopify themes",
+    items: ["Liquid", "Online Store 2.0", "Sections & blocks", "Metafields & metaobjects", "Theme app extensions", "Shopify Plus", "Hydrogen"],
+  },
+  {
     group: "Shopify APIs",
-    items: ["Admin GraphQL (2026-07)", "Bulk Operations", "Carrier Service", "Discounts", "Customer Segments", "Returns", "App Proxy", "Webhooks", "Shopify Functions", "Checkout UI extensions", "Storefront API"],
+    items: ["Admin GraphQL (2026-07)", "Storefront API", "Shopify Functions", "Checkout UI extensions", "Bulk Operations", "Carrier Service", "Discounts", "Customer Segments", "Returns", "App Proxy", "Webhooks"],
   },
   {
-    group: "Platform",
-    items: ["Liquid", "Online Store 2.0 themes", "Hydrogen", "Shopify CLI", "App Bridge", "Polaris web components", "React Router app template", "Embedded admin apps"],
+    group: "Apps & back end",
+    items: ["Shopify CLI", "App Bridge", "Polaris web components", "React Router", "Next.js", "Node.js", "GraphQL", "REST APIs", "Prisma", "PostgreSQL"],
   },
   {
-    group: "Engineering",
-    items: ["TypeScript", "React", "Prisma", "PostgreSQL", "Vitest", "Next.js", "Vercel"],
+    group: "Tools & workflow",
+    items: ["Git & GitHub", "Vitest", "Vercel", "Figma to Shopify", "Core Web Vitals", "SEO", "GA4 & GTM"],
   },
 ];
