@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { ProjectVisual } from "@/components/project-visual";
 import { StoreList } from "@/components/store-list";
-import { processSteps, toolkit } from "@/lib/process";
+import { processSteps, skills, toolkit } from "@/lib/process";
 import { projects } from "@/lib/projects";
 import { site } from "@/lib/site";
 
@@ -11,13 +11,6 @@ const initials = site.name
   .map((w) => w[0])
   .filter((_, i, all) => i === 0 || i === all.length - 1)
   .join("");
-
-const stats = [
-  { value: String(projects.length), label: "Embedded Shopify apps", icon: "M4 5h7v7H4zM13 5h7v7h-7zM4 14h7v5H4zM13 14h7v5h-7z" },
-  { value: "2026-07", label: "Admin GraphQL API", icon: "M12 3l8 4.5v9L12 21l-8-4.5v-9zM12 3v18M4 7.5l16 9M20 7.5l-16 9" },
-  { value: String(toolkit[0].items.length), label: "Shopify APIs in use", icon: "M8 6l-5 6 5 6M16 6l5 6-5 6M14 4l-4 16" },
-  { value: "Polaris", label: "Web components UI", icon: "M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z" },
-];
 
 function Icon({ d, className = "size-4" }: { d: string; className?: string }) {
   return (
@@ -43,7 +36,7 @@ function Panel({
   return (
     <section
       style={{ animationDelay: `${delay}ms` }}
-      className={`rise flex min-h-0 flex-col rounded-2xl border border-line bg-surface/85 p-4 shadow-sm shadow-black/[0.03] backdrop-blur ${className}`}
+      className={`rise flex min-h-0 flex-col rounded-2xl border border-line bg-surface/85 p-4 shadow-sm shadow-orange-950/[0.03] backdrop-blur ${className}`}
     >
       <header className="mb-3 flex items-baseline justify-between gap-3">
         <h2 className="text-sm font-semibold tracking-tight">{title}</h2>
@@ -58,9 +51,9 @@ export default function Home() {
   return (
     <main className="mx-auto flex max-w-[1680px] flex-col gap-3 p-3 sm:p-4 dash:grid dash:h-dvh dash:grid-cols-12 dash:grid-rows-[auto_minmax(0,1.3fr)_minmax(0,1fr)] dash:overflow-hidden">
       {/* Profile sidebar */}
-      <aside className="rise flex min-h-0 flex-col gap-5 rounded-2xl border border-line bg-surface/85 p-5 shadow-sm shadow-black/[0.03] backdrop-blur dash:col-span-3 dash:row-span-3">
+      <aside className="rise flex min-h-0 flex-col gap-5 rounded-2xl border border-line bg-surface/85 p-5 shadow-sm shadow-orange-950/[0.03] backdrop-blur dash:col-span-3 dash:row-span-3">
         <div className="flex items-center gap-3">
-          <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-emerald-400 to-sky-500 text-lg font-semibold text-white shadow-md shadow-emerald-500/20">
+          <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#c2410c] to-[#f59e0b] text-lg font-semibold text-white shadow-md shadow-orange-700/20">
             {initials}
           </span>
           <div className="min-w-0">
@@ -77,7 +70,7 @@ export default function Home() {
 
         <div>
           <p className="text-[1.35rem] leading-snug font-semibold tracking-tight">
-            Shopify apps that take the busywork off a merchant&apos;s plate.
+            Shopify apps and storefronts that take the busywork off a merchant&apos;s plate.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-muted">{site.intro}</p>
         </div>
@@ -86,7 +79,7 @@ export default function Home() {
           {site.email && (
             <a
               href={`mailto:${site.email}`}
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-medium text-white shadow-sm shadow-orange-800/20 transition-colors hover:bg-accent-strong"
             >
               <Icon d="M3 6h18v12H3zM3 7l9 6 9-6" />
               Get in touch
@@ -108,7 +101,7 @@ export default function Home() {
           )}
         </div>
 
-        <div className="scroll-quiet flex min-h-0 flex-1 flex-col gap-4 border-t border-line pt-4 dash:overflow-y-auto">
+        <div className="scroll-quiet flex min-h-0 flex-1 flex-col gap-4 border-t border-line pt-4 pb-6 dash:overflow-y-auto dash:[mask-image:linear-gradient(to_bottom,black_calc(100%-2.5rem),transparent)]">
           {toolkit.map((t) => (
             <div key={t.group}>
               <h2 className="mb-2 font-mono text-[11px] tracking-widest text-muted uppercase">{t.group}</h2>
@@ -126,24 +119,25 @@ export default function Home() {
         {site.email && <p className="truncate font-mono text-[11px] text-muted">{site.email}</p>}
       </aside>
 
-      {/* KPI row */}
-      <dl className="grid grid-cols-2 gap-3 lg:grid-cols-4 dash:col-span-9">
-        {stats.map((s, i) => (
-          <div
-            key={s.label}
+      {/* Skills */}
+      <ul aria-label="Skills" className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5 dash:col-span-9">
+        {skills.map((skill, i) => (
+          <li
+            key={skill.title}
+            title={skill.body}
             style={{ animationDelay: `${60 + i * 40}ms` }}
-            className="rise flex flex-col items-start gap-3 rounded-2xl border border-line bg-surface/85 p-4 sm:flex-row sm:items-center shadow-sm shadow-black/[0.03] backdrop-blur"
+            className="rise flex flex-col gap-2 rounded-2xl border border-line bg-surface/90 p-3.5 shadow-sm shadow-orange-950/[0.03] backdrop-blur"
           >
-            <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
-              <Icon d={s.icon} className="size-5" />
-            </span>
-            <div className="min-w-0">
-              <dt className="text-xs text-muted sm:truncate">{s.label}</dt>
-              <dd className="truncate text-xl font-semibold tracking-tight">{s.value}</dd>
+            <div className="flex items-center gap-2.5">
+              <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
+                <Icon d={skill.icon} />
+              </span>
+              <h2 className="truncate text-sm font-semibold tracking-tight">{skill.title}</h2>
             </div>
-          </div>
+            <p className="text-xs leading-snug text-muted dash-short:hidden">{skill.body}</p>
+          </li>
         ))}
-      </dl>
+      </ul>
 
       {/* Apps */}
       <Panel title="Apps" meta="Embedded admin apps · open one for the case study" delay={200} className="dash:col-span-9">
@@ -180,7 +174,7 @@ export default function Home() {
             <li className="min-h-0">
               <a
                 href={`mailto:${site.email}`}
-                className="group relative flex h-full min-h-40 flex-col justify-end gap-1 overflow-hidden rounded-xl bg-gradient-to-br from-emerald-500 to-sky-600 p-4 text-white transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/20 dash:min-h-0"
+                className="group relative flex h-full min-h-40 flex-col justify-end gap-1 overflow-hidden rounded-xl bg-gradient-to-br from-[#c2410c] via-[#ea580c] to-[#f59e0b] p-4 text-white transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-600/25 dash:min-h-0"
               >
                 <span
                   aria-hidden

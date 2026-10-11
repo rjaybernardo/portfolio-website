@@ -7,8 +7,12 @@ CREATE TABLE IF NOT EXISTS stores (
   summary     text,                 -- one or two sentences on what you did
   tags        text[] NOT NULL DEFAULT '{}',
   image_url   text,                 -- optional screenshot or logo URL
+  repo_url    text,                 -- optional link to the theme or app code
   period      text,                 -- e.g. "2026" or "Mar–Jun 2026"
   sort_order  integer NOT NULL DEFAULT 0,  -- higher shows first
   published   boolean NOT NULL DEFAULT true,
   created_at  timestamptz NOT NULL DEFAULT now()
 );
+
+-- Added after the first release; keeps existing databases in step.
+ALTER TABLE stores ADD COLUMN IF NOT EXISTS repo_url text;

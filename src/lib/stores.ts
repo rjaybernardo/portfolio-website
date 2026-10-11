@@ -10,6 +10,7 @@ export type Store = {
   summary: string | null;
   tags: string[];
   image_url: string | null;
+  repo_url: string | null;
   period: string | null;
 };
 
@@ -22,7 +23,7 @@ export async function getStores(): Promise<Store[]> {
   if (!sql) return [];
   try {
     return (await sql`
-      SELECT id, name, url, role, summary, tags, image_url, period
+      SELECT id, name, url, role, summary, tags, image_url, repo_url, period
       FROM stores
       WHERE published
       ORDER BY sort_order DESC, created_at DESC

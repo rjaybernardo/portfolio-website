@@ -32,14 +32,43 @@ export const processSteps = [
   },
 ];
 
+// Services shown as tiles across the top of the home page.
+export const skills = [
+  {
+    title: "Shopify apps",
+    body: "Admin apps that automate the store work merchants do by hand.",
+    icon: "M4 5h7v7H4zM13 5h7v7h-7zM4 14h7v5H4zM13 14h7v5h-7z",
+  },
+  {
+    title: "Liquid themes",
+    body: "Custom sections and blocks merchants can edit themselves.",
+    icon: "M12 3.5c3 4 6 7.2 6 10.5a6 6 0 0 1-12 0c0-3.3 3-6.5 6-10.5z",
+  },
+  {
+    title: "Hydrogen",
+    body: "Fast headless storefronts on the Storefront API.",
+    icon: "M13 3L5 14h6l-1 7 8-11h-6z",
+  },
+  {
+    title: "Checkout",
+    body: "Functions for custom discount, delivery and payment logic.",
+    icon: "M3 6h18v12H3zM3 10h18M7 15h4",
+  },
+  {
+    title: "Store setup",
+    body: "New stores, and migrations from other platforms.",
+    icon: "M4 8h13l-3-3M20 16H7l3 3",
+  },
+];
+
 export const toolkit = [
   {
     group: "Shopify APIs",
-    items: ["Admin GraphQL (2026-07)", "Bulk Operations", "Carrier Service", "Discounts", "Customer Segments", "Returns", "App Proxy", "Webhooks"],
+    items: ["Admin GraphQL (2026-07)", "Bulk Operations", "Carrier Service", "Discounts", "Customer Segments", "Returns", "App Proxy", "Webhooks", "Shopify Functions", "Checkout UI extensions", "Storefront API"],
   },
   {
-    group: "App platform",
-    items: ["Shopify CLI", "App Bridge", "Polaris web components", "React Router app template", "Embedded admin apps"],
+    group: "Platform",
+    items: ["Liquid", "Online Store 2.0 themes", "Hydrogen", "Shopify CLI", "App Bridge", "Polaris web components", "React Router app template", "Embedded admin apps"],
   },
   {
     group: "Engineering",

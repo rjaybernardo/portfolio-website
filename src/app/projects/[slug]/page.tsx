@@ -37,7 +37,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         <div className="mt-6 flex flex-wrap gap-3">
           <a
             href={project.repo}
-            className="rounded-xl bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85"
+            className="rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-strong"
           >
             View the code ↗
           </a>
