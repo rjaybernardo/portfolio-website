@@ -66,10 +66,10 @@ export default function Home() {
               width={160}
               height={160}
               preload
-              className="size-20 shrink-0 rounded-2xl object-cover shadow-lg ring-4 shadow-orange-700/20 ring-accent-soft dash-short:size-16"
+              className="size-20 shrink-0 rounded-full object-cover shadow-lg ring-4 shadow-orange-700/20 ring-accent-soft dash-short:size-16"
             />
           ) : (
-            <span className="grid size-20 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#c2410c] to-[#f59e0b] text-2xl font-semibold text-white shadow-lg ring-4 shadow-orange-700/20 ring-accent-soft dash-short:size-16 dash-short:text-xl">
+            <span className="grid size-20 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#c2410c] to-[#f59e0b] text-2xl font-semibold text-white shadow-lg ring-4 shadow-orange-700/20 ring-accent-soft dash-short:size-16 dash-short:text-xl">
               {initials}
             </span>
           )}
