@@ -40,24 +40,24 @@ function Panel({
     <section
       id={id}
       style={{ animationDelay: `${delay}ms` }}
-      className={`rise flex scroll-mt-4 flex-col rounded-2xl border border-line bg-surface/85 p-4 shadow-sm shadow-orange-950/[0.03] backdrop-blur sm:p-5 ${className}`}
+      className={`rise flex min-h-0 scroll-mt-4 flex-col rounded-2xl border border-line bg-surface/85 p-4 shadow-sm shadow-orange-950/[0.03] backdrop-blur sm:p-5 dash:p-4 ${className}`}
     >
-      <header className="mb-3 flex items-baseline justify-between gap-3">
+      <header className="mb-3 flex shrink-0 items-baseline justify-between gap-3">
         <h2 className="text-sm font-semibold tracking-tight">{title}</h2>
         {meta && <span className="truncate text-xs text-muted">{meta}</span>}
       </header>
-      {children}
+      <div className="scroll-quiet min-h-0 flex-1 dash:-mr-2 dash:overflow-y-auto dash:pr-2">{children}</div>
     </section>
   );
 }
 
 export default function Home() {
   return (
-    // Phones and tablets stack everything (hero first). From lg up the profile sits in a
-    // sticky sidebar and the rest scrolls beside it; nothing is squeezed to fit the screen.
-    <main className="mx-auto flex max-w-[1440px] flex-col gap-4 p-3 sm:p-5 lg:grid lg:grid-cols-12 lg:items-start lg:gap-5 lg:p-6">
+    // Landscape screens get a full-width, one-screen dashboard; panels that don't fit scroll
+    // inside themselves. Phones and portrait screens stack everything, hero first.
+    <main className="flex flex-col gap-4 p-3 sm:p-5 dash:grid dash:h-dvh dash:grid-cols-12 dash:grid-rows-[auto_minmax(0,1.8fr)_minmax(0,1fr)] dash:gap-3 dash:overflow-hidden dash:p-4">
       {/* Profile sidebar */}
-      <aside className="rise flex flex-col gap-5 rounded-2xl border border-line bg-surface/85 p-5 shadow-sm shadow-orange-950/[0.03] backdrop-blur lg:sticky lg:top-6 lg:col-span-4 lg:max-h-[calc(100dvh-3rem)] xl:col-span-3">
+      <aside className="rise flex min-h-0 flex-col gap-5 rounded-2xl border border-line bg-surface/85 p-5 shadow-sm shadow-orange-950/[0.03] backdrop-blur dash:col-span-3 dash:row-span-3 dash:gap-4">
         <div className="flex items-center gap-4">
           {site.photo ? (
             <Image
@@ -66,10 +66,10 @@ export default function Home() {
               width={160}
               height={160}
               preload
-              className="size-20 shrink-0 rounded-2xl object-cover shadow-lg ring-4 shadow-orange-700/20 ring-accent-soft"
+              className="size-20 shrink-0 rounded-2xl object-cover shadow-lg ring-4 shadow-orange-700/20 ring-accent-soft dash-short:size-16"
             />
           ) : (
-            <span className="grid size-20 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#c2410c] to-[#f59e0b] text-2xl font-semibold text-white shadow-lg ring-4 shadow-orange-700/20 ring-accent-soft">
+            <span className="grid size-20 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#c2410c] to-[#f59e0b] text-2xl font-semibold text-white shadow-lg ring-4 shadow-orange-700/20 ring-accent-soft dash-short:size-16 dash-short:text-xl">
               {initials}
             </span>
           )}
@@ -95,10 +95,10 @@ export default function Home() {
           </div>
         </div>
 
-        <p className="text-sm leading-relaxed text-muted">{site.intro}</p>
+        <p className="text-sm leading-relaxed text-muted dash-short:line-clamp-3">{site.intro}</p>
 
-        {/* On desktop only this list scrolls, so the sidebar never runs past the screen. */}
-        <div className="scroll-quiet flex min-h-0 flex-col gap-4 border-t border-line pt-4 lg:-mr-2 lg:overflow-y-auto lg:pr-2">
+        {/* On the dashboard only this list scrolls, so the sidebar never runs past the screen. */}
+        <div className="scroll-quiet flex min-h-0 flex-1 flex-col gap-4 border-t border-line pt-4 dash:-mr-2 dash:overflow-y-auto dash:pr-2 dash:pb-6 dash:[mask-image:linear-gradient(to_bottom,black_calc(100%-2rem),transparent)]">
           {toolkit.map((t) => (
             <div key={t.group}>
               <h2 className="mb-2 font-mono text-[11px] tracking-widest text-muted uppercase">{t.group}</h2>
@@ -120,30 +120,30 @@ export default function Home() {
         )}
       </aside>
 
-      {/* `contents` lets the hero jump above the sidebar on small screens; from lg this is the main column. */}
-      <div className="contents lg:col-span-8 lg:flex lg:flex-col lg:gap-5 xl:col-span-9">
+      {/* `contents` makes these direct grid/flex items, so the hero can lead on small screens. */}
+      <div className="contents">
         {/* Hero: the one dark card, so the eye lands here first */}
         <section
           style={{ animationDelay: "60ms" }}
-          className="rise relative isolate order-first overflow-hidden rounded-2xl bg-ink p-5 text-white shadow-xl shadow-orange-950/15 sm:p-6 lg:order-none"
+          className="rise relative isolate order-first overflow-hidden rounded-2xl bg-ink p-5 text-white shadow-xl shadow-orange-950/15 sm:p-6 dash:order-none dash:col-span-9 dash:px-6 dash:py-5"
         >
           <span aria-hidden className="pointer-events-none absolute -top-24 -right-16 -z-10 size-96 rounded-full bg-[#ea580c]/35 blur-3xl" />
           <span aria-hidden className="pointer-events-none absolute -bottom-32 left-1/3 -z-10 size-80 rounded-full bg-[#f59e0b]/15 blur-3xl" />
 
-          <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80">
+          <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80 dash-short:hidden">
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#fb923c] opacity-70 motion-reduce:hidden" />
               <span className="relative inline-flex size-2 rounded-full bg-[#fb923c]" />
             </span>
             Available for Shopify projects and roles
           </p>
-          <p className="mt-3 max-w-3xl text-[1.75rem] leading-[1.15] font-semibold tracking-tight text-balance sm:text-3xl xl:text-4xl">
+          <p className="mt-3 max-w-3xl text-[1.75rem] leading-[1.15] font-semibold tracking-tight text-balance sm:text-3xl dash:max-w-4xl dash:text-[2rem] dash-short:mt-0 dash-short:text-[1.65rem]">
             Shopify stores and apps that take the{" "}
             <span className="bg-gradient-to-r from-[#fb923c] to-[#fcd34d] bg-clip-text text-transparent">busywork</span> off a
             merchant&apos;s plate.
           </p>
 
-          <div className="mt-5 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+          <div className="mt-5 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between dash:mt-4 dash-short:mt-3">
             <div className="flex shrink-0 flex-wrap gap-2">
               {site.email && (
                 <a
@@ -156,7 +156,7 @@ export default function Home() {
               )}
               <a
                 href="#apps"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10 dash-short:hidden"
               >
                 See my apps ↓
               </a>
@@ -179,33 +179,33 @@ export default function Home() {
             </ul>
           </div>
 
-          <div className="mt-5 flex flex-col gap-2 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:gap-5">
+          <div className="mt-5 flex flex-col gap-2 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:gap-5 dash:mt-4 dash:pt-3 dash-short:mt-3 dash-short:pt-2.5">
             <p className="shrink-0 font-mono text-[11px] tracking-widest text-white/45 uppercase">Stores I&apos;ve worked on</p>
             <ClientNames />
           </div>
         </section>
 
         {/* Apps */}
-        <Panel id="apps" title="Apps" meta="Embedded admin apps · open one for the case study" delay={200}>
-          <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <Panel id="apps" title="Apps" meta="Embedded admin apps · open one for the case study" delay={200} className="dash:col-span-9">
+          <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 dash:h-full dash:grid-cols-3 dash:grid-rows-2">
             {projects.map((project, i) => (
-              <li key={project.slug}>
+              <li key={project.slug} className="min-h-0">
                 <Link
                   href={`/projects/${project.slug}`}
-                  className="group flex h-full flex-col gap-3 rounded-xl border border-line bg-surface-2 p-2 transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-lg hover:shadow-black/5"
+                  className="group flex h-full flex-col gap-3 rounded-xl dash:gap-2 border border-line bg-surface-2 p-2 transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-lg hover:shadow-black/5"
                 >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-line">
+                  <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden rounded-lg border border-line dash:aspect-auto dash:min-h-0 dash:flex-1">
                     <div className="h-full transition-transform duration-500 group-hover:scale-[1.04]">
-                      <ProjectVisual project={project} priority={i < 3} fill sizes="(min-width: 1280px) 360px, (min-width: 640px) 50vw, 100vw" />
+                      <ProjectVisual project={project} priority={i < 3} fill sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw" />
                     </div>
                   </div>
-                  <div className="flex min-w-0 flex-1 flex-col gap-1 px-1 pb-1">
+                  <div className="flex min-w-0 flex-1 flex-col gap-1 px-1 pb-1 dash:flex-none">
                     <h3 className="flex items-center justify-between gap-2 text-sm font-semibold tracking-tight">
                       <span className="truncate">{project.name}</span>
                       <span className="text-accent transition-transform group-hover:translate-x-0.5">→</span>
                     </h3>
-                    <p className="line-clamp-2 text-xs leading-relaxed text-muted">{project.tagline}</p>
-                    <ul className="mt-auto flex flex-wrap gap-1 pt-2">
+                    <p className="line-clamp-2 text-xs leading-relaxed text-muted dash-short:line-clamp-1">{project.tagline}</p>
+                    <ul className="mt-auto flex flex-wrap gap-1 pt-2 dash:hidden">
                       {project.highlights.map((h) => (
                         <li key={h} className="rounded-full bg-accent-soft px-2 py-0.5 text-[11px] text-accent">
                           {h}
@@ -217,10 +217,10 @@ export default function Home() {
               </li>
             ))}
             {site.email && (
-              <li>
+              <li className="min-h-0">
                 <a
                   href={`mailto:${site.email}`}
-                  className="group relative flex h-full min-h-48 flex-col justify-end gap-1 overflow-hidden rounded-xl bg-gradient-to-br from-[#c2410c] via-[#ea580c] to-[#f59e0b] p-5 text-white transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-600/25"
+                  className="group relative flex h-full min-h-48 flex-col justify-end dash:min-h-0 gap-1 overflow-hidden rounded-xl bg-gradient-to-br from-[#c2410c] via-[#ea580c] to-[#f59e0b] p-5 text-white transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-600/25"
                 >
                   <span
                     aria-hidden
@@ -237,12 +237,12 @@ export default function Home() {
           </ul>
         </Panel>
 
-        <div className="contents xl:grid xl:grid-cols-3 xl:items-start xl:gap-5">
+        <div className="contents">
           {/* How I work */}
-          <Panel title="How I work" meta="Habits behind every app" delay={260} className="xl:col-span-2">
-            <ol className="grid gap-3 sm:grid-cols-2">
+          <Panel title="How I work" meta="Habits behind every app" delay={260} className="dash:col-span-6">
+            <ol className="grid gap-3 sm:grid-cols-2 dash:gap-2">
               {processSteps.map((s) => (
-                <li key={s.step} className="flex gap-3 rounded-xl bg-surface-2 p-4">
+                <li key={s.step} className="flex gap-3 rounded-xl bg-surface-2 p-4 dash:p-3">
                   <span className="font-mono text-xs leading-5 text-accent">{s.step}</span>
                   <div className="min-w-0">
                     <h3 className="text-sm leading-5 font-medium">{s.title}</h3>
@@ -254,7 +254,7 @@ export default function Home() {
           </Panel>
 
           {/* Client work */}
-          <Panel title="Client work" meta="Stores I've worked on" delay={320}>
+          <Panel title="Client work" meta="Stores I've worked on" delay={320} className="dash:col-span-3">
             <StoreList />
           </Panel>
         </div>
