@@ -25,9 +25,9 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
   const [hero, ...rest] = project.screenshots;
 
   return (
-    <article className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
+    <article id="main" className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
       <Link href="/" className="inline-flex items-center rounded-xl border border-line bg-surface px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent hover:text-foreground">
-        ← Dashboard
+        ← All projects
       </Link>
 
       <header className="mt-8 max-w-3xl">
