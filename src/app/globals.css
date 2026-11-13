@@ -620,3 +620,50 @@ body, .delivery-card, .skills-board, .about-section, .contact-section, .theme-pr
 .showcase-play:hover { background: var(--accent-soft); color: var(--accent); }
 .showcase-window { max-height: 100%; }
 @media (max-width: 767px) { .showcase-top { gap: 12px; } .showcase-top > .eyebrow { max-width: 230px; } }
+/* A real horizontal track, with seamless boundary copies. */
+.showcase-viewport { position: absolute; inset: 72px 0 115px; overflow: hidden; touch-action: pan-y; }
+.showcase-track { display: flex; width: 100%; height: 100%; transition: transform 600ms cubic-bezier(.22,.7,.18,1); will-change: transform; }
+.showcase-slide { flex: 0 0 100%; height: 100%; min-width: 0; position: relative; }
+.showcase-slide .showcase-stack { inset: 0 30px; animation: none; }
+.showcase-status { display: block; font-size: var(--text-label); line-height: 1.5; margin-top: 5px; color: var(--muted); }
+.showcase-bottom { min-height: 110px; }
+.showcase-timer { position: absolute; inset-inline: 0; bottom: 109px; height: 3px; background: var(--showcase-border); overflow: hidden; }
+.showcase-timer > span { display: block; height: 100%; width: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; }
+.showcase-timer > span[data-running=true] { animation: banner-progress 6s linear forwards; }
+.reading-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; z-index: 100; pointer-events: none; }
+.site-header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--background) 94%, transparent); backdrop-filter: blur(16px); }
+.site-header nav a { position: relative; }
+.site-header nav a[aria-current=location] { color: var(--accent); }
+.site-header nav a:not(:last-child)::after { content: ""; position: absolute; inset-inline: 0; bottom: 3px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+.site-header nav a[aria-current=location]::after { transform: scaleX(1); }
+[data-reveal] { transition: opacity .6s ease var(--reveal-delay,0ms), translate .6s cubic-bezier(.22,.7,.18,1) var(--reveal-delay,0ms); }
+[data-reveal=pending] { opacity: 0; translate: 0 25px; }
+[data-reveal=visible] { opacity: 1; translate: 0 0; }
+.explorer-content, .skill-panel, .pipeline-panel { animation: content-enter .35s ease both; }
+.project-tabs button, .skills-tabs button, .pipeline-tabs button { transition: background-color .2s, color .2s, border-color .2s, translate .2s; }
+.project-tabs button:hover { translate: 0 -2px; }
+.theme-project-visual img { transition: transform .6s cubic-bezier(.22,.7,.18,1); }
+.theme-project-visual:hover img { transform: scale(1.025); }
+@keyframes banner-progress { to { transform: scaleX(1); } }
+@keyframes content-enter { from { opacity: .25; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
+@media (max-width: 767px) {
+  .showcase { height: 390px; }
+  .showcase-viewport { inset: 76px 0 132px; }
+  .showcase-slide .showcase-stack { inset-inline: 18px; }
+  .showcase-bottom { min-height: 130px; }
+  .showcase-timer { bottom: 129px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; translate: none !important; }
+  .showcase-track { transition: none !important; }
+}
+html { scroll-padding-top: 120px; }
+.button-primary { transition: background-color .2s, color .2s, transform .2s, box-shadow .2s; }
+.button-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 18px color-mix(in srgb, var(--accent) 18%, transparent); }
+@media (max-width: 767px) { html { scroll-padding-top: 165px; } }
+@media (prefers-reduced-motion: reduce) { .button-primary:hover { transform: none; } }
+[data-reveal=focused] { opacity: 1; translate: 0 0; transition: none; }
+.hero-heading { animation: hero-enter .7s cubic-bezier(.22,.7,.18,1) both; }
+.hero-copy { animation: hero-enter .7s cubic-bezier(.22,.7,.18,1) .12s both; }
+.showcase { animation: hero-enter .8s cubic-bezier(.22,.7,.18,1) .22s both; }
+@keyframes hero-enter { from { opacity: 0; translate: 0 20px; } to { opacity: 1; translate: 0 0; } }

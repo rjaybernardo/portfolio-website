@@ -6,6 +6,13 @@ A personal portfolio for Shopify apps, storefronts, and integrations, built with
 
 ## Preview
 
+<details>
+<summary>Watch the banner slide (actual browser recording)</summary>
+
+![Actual banner sliding through project previews](docs/screenshots/banner-sliding.gif)
+
+</details>
+
 Actual screenshots of the production build, updated November 13, 2026.
 
 ![Light-theme Shopify developer portfolio with an introduction and featured project](docs/screenshots/portfolio-desktop.png)
@@ -39,7 +46,8 @@ Actual screenshots of the production build, updated November 13, 2026.
 ## Features
 
 - An expressive light theme, oversized personal introduction, layered app previews, and clear contact links.
-- Featured banner autoplay every six seconds, pause/play and previous/next controls, hover/focus pauses, and reduced-motion support.
+- Horizontally sliding banner with seamless wraparound, touch swipes, six-second autoplay, progress feedback, pause/play and previous/next controls. Hover/focus pauses and reduced-motion support are included.
+- Staggered page-entry motion, scroll-entry reveals, a sticky section-aware navigation, reading progress, and animated project/skills/workflow changes.
 - Light/dark theme toggle on the homepage and case studies, with a remembered choice and light default.
 - Five-project explorer with screenshot selection, keyboard-accessible tabs, and links to case studies and source code.
 - Interactive CI/CD project walkthrough with source excerpts and a verified GitHub quality-check run.

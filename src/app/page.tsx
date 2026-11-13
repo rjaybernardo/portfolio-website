@@ -1,3 +1,5 @@
+import { SiteMotion } from "@/components/site-motion";
+import { SectionNavigation } from "@/components/section-navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Image from "next/image";
 import themeScreenshot from "@/content/screenshots/rgb-leather-home.jpg";
@@ -33,6 +35,7 @@ async function StoreWork() {
 export default function Home() {
   return (
     <>
+      <SiteMotion />
       <a href="#main" className="skip-link">
         Skip to content
       </a>
@@ -42,14 +45,7 @@ export default function Home() {
           <span>Shopify Developer / Apps & storefronts</span>
         </a>
         <div className="header-tools">
-          <nav aria-label="Main navigation">
-            <a href="#work">Work</a>
-            <a href="#skills">Skills</a>
-            <a href="#about">About</a>
-            <a href="#contact">
-              Contact <span aria-hidden>↗</span>
-            </a>
-          </nav>
+          <SectionNavigation />
           <ThemeToggle />
         </div>
       </header>

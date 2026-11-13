@@ -31,3 +31,9 @@ Light remains the default. Visitors can switch to a warm charcoal palette using 
 Apply the saved theme before the page paints. Theme controls must remain keyboard accessible, work without browser storage, and synchronize across tabs.
 
 The featured banner advances every six seconds, with an explicit pause/play control. Hover pauses rotation temporarily; focusing project content or using the manual arrows stops rotation until the visitor restarts it. Disable automatic rotation by default when reduced motion is requested, and suspend its timer in background tabs.
+
+## Interaction direction
+
+The user explicitly wants a more dynamic site. The banner must physically slide horizontally, not just swap/fade content. Use a clipped sliding track with seamless boundary copies, touch swipes, and a visible autoplay status/progress indicator. Keep inactive slides out of keyboard navigation.
+
+Use restrained scroll-entry reveals, sticky section navigation, reading progress, and transitions when switching actual project/skill/workflow content. Reveals must remain visible without JavaScript and reveal immediately when keyboard focus reaches their content. Reduced motion disables automatic movement and entry effects. Do not add fake metrics or unrelated interactive toys.

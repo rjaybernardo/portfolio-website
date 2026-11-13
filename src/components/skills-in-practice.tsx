@@ -56,6 +56,7 @@ export function SkillsInPractice() {
       </div>
       <div
         role="tabpanel"
+        key={area.id}
         id="skill-panel"
         aria-labelledby={`skill-tab-${selected}`}
         tabIndex={0}

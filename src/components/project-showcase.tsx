@@ -3,10 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  useCallback,
   useEffect,
+  useRef,
   useState,
   useSyncExternalStore,
   type PointerEvent,
+  type TransitionEvent,
 } from "react";
 import type { Project } from "@/lib/projects";
 
@@ -21,7 +24,14 @@ function subscribeVisibility(notify: () => void) {
 }
 
 export function ProjectShowcase({ projects }: { projects: Project[] }) {
-  const [selected, setSelected] = useState(0);
+  // Boundary copies let both directions wrap without sliding across every item.
+  const slides = [projects[projects.length - 1], ...projects, projects[0]];
+  const [position, setPosition] = useState(1);
+  const [animated, setAnimated] = useState(true);
+  const moving = useRef(false);
+  const frames = useRef<number[]>([]);
+  const gesture = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
   const [playback, setPlayback] = useState<"auto" | "play" | "pause">("auto");
   const [hovered, setHovered] = useState(false);
   const reducedMotion = useSyncExternalStore(
@@ -34,43 +44,114 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
     () => document.hidden,
     () => true,
   );
+  const selected = (position - 1 + projects.length) % projects.length;
+  const project = projects[selected];
   const shouldPlay =
     playback === "play" || (playback === "auto" && !reducedMotion);
+  const running = shouldPlay && !hovered && !hidden;
+
+  const advance = useCallback(
+    (offset: number) => {
+      if (moving.current || projects.length < 2) return;
+      if (reducedMotion) {
+        setPosition(
+          (current) =>
+            ((current - 1 + offset + projects.length) % projects.length) + 1,
+        );
+      } else {
+        moving.current = true;
+        setAnimated(true);
+        setPosition((current) => current + offset);
+      }
+    },
+    [projects.length, reducedMotion],
+  );
 
   useEffect(() => {
-    if (!shouldPlay || hovered || hidden || projects.length < 2) return;
-    const timer = window.setInterval(
-      () => setSelected((index) => (index + 1) % projects.length),
-      6000,
-    );
+    if (!running || projects.length < 2) return;
+    const timer = window.setInterval(() => advance(1), 6000);
     return () => window.clearInterval(timer);
-  }, [shouldPlay, hovered, hidden, projects.length]);
+  }, [advance, running, projects.length]);
+
+  useEffect(() => {
+    const query = matchMedia("(prefers-reduced-motion: reduce)");
+    function settle(event: MediaQueryListEvent) {
+      if (!event.matches) return;
+      frames.current.forEach(cancelAnimationFrame);
+      frames.current = [];
+      moving.current = false;
+      setAnimated(false);
+      setPosition(
+        (current) => ((current - 1 + projects.length) % projects.length) + 1,
+      );
+    }
+    query.addEventListener("change", settle);
+    return () => query.removeEventListener("change", settle);
+  }, [projects.length]);
+
+  useEffect(
+    () => () => {
+      frames.current.forEach(cancelAnimationFrame);
+    },
+    [],
+  );
+
+  function finishTransition(event: TransitionEvent<HTMLDivElement>) {
+    if (
+      event.target !== event.currentTarget ||
+      event.propertyName !== "transform"
+    )
+      return;
+    const canonical =
+      position === 0
+        ? projects.length
+        : position === projects.length + 1
+          ? 1
+          : position;
+    if (canonical !== position) {
+      setAnimated(false);
+      setPosition(canonical);
+      frames.current.forEach(cancelAnimationFrame);
+      frames.current = [
+        requestAnimationFrame(() => {
+          frames.current.push(
+            requestAnimationFrame(() => {
+              moving.current = false;
+              setAnimated(true);
+            }),
+          );
+        }),
+      ];
+    } else {
+      moving.current = false;
+    }
+  }
 
   function select(offset: number) {
     setPlayback("pause");
-    setSelected(
-      (index) => (index + offset + projects.length) % projects.length,
-    );
+    advance(offset);
   }
-  const project = projects[selected];
-  const [front, back] = project.screenshots;
 
-  function move(event: PointerEvent<HTMLDivElement>) {
-    if (
-      event.pointerType !== "mouse" ||
-      matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
-    const bounds = event.currentTarget.getBoundingClientRect();
+  function pointerMove(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse" || reducedMotion) return;
+    const box = event.currentTarget.getBoundingClientRect();
     event.currentTarget.style.setProperty(
       "--pointer-x",
-      `${((event.clientX - bounds.left) / bounds.width - 0.5) * 8}px`,
+      `${((event.clientX - box.left) / box.width - 0.5) * 8}px`,
     );
     event.currentTarget.style.setProperty(
       "--pointer-y",
-      `${((event.clientY - bounds.top) / bounds.height - 0.5) * 8}px`,
+      `${((event.clientY - box.top) / box.height - 0.5) * 8}px`,
     );
   }
+
+  const status = !shouldPlay
+    ? "Paused · use arrows or play"
+    : hovered
+      ? "Paused while hovering"
+      : hidden
+        ? "Paused in background"
+        : "Autoplay · every 6 seconds";
 
   return (
     <div
@@ -88,7 +169,7 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
       onPointerEnter={(event) => {
         if (event.pointerType === "mouse") setHovered(true);
       }}
-      onPointerMove={move}
+      onPointerMove={pointerMove}
       onPointerLeave={(event) => {
         setHovered(false);
         event.currentTarget.style.setProperty("--pointer-x", "0px");
@@ -126,52 +207,109 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
         </button>
       </div>
       <div
-        className="showcase-stack"
-        key={project.slug}
-        role="group"
-        aria-roledescription="slide"
-        aria-label={`${selected + 1} of ${projects.length}: ${project.name}`}
+        className="showcase-viewport"
+        onPointerDown={(event) => {
+          swiped.current = false;
+          if (event.pointerType === "touch") {
+            gesture.current = { x: event.clientX, y: event.clientY };
+            setPlayback("pause");
+          }
+        }}
+        onPointerCancel={() => {
+          gesture.current = null;
+        }}
+        onPointerUp={(event) => {
+          if (!gesture.current) return;
+          const dx = event.clientX - gesture.current.x;
+          const dy = event.clientY - gesture.current.y;
+          gesture.current = null;
+          if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+            swiped.current = true;
+            select(dx < 0 ? 1 : -1);
+          }
+        }}
+        onClickCapture={(event) => {
+          if (swiped.current) {
+            event.preventDefault();
+            event.stopPropagation();
+            swiped.current = false;
+          }
+        }}
       >
-        {back && (
-          <div className="showcase-window showcase-back" aria-hidden="true">
-            <div className="showcase-browser">
-              <i />
-              <i />
-              <i />
-            </div>
-            <Image
-              src={back.src}
-              alt=""
-              sizes="(min-width: 1024px) 420px, 60vw"
-            />
-          </div>
-        )}
-        <Link
-          href={`/projects/${project.slug}`}
-          className="showcase-window showcase-front"
-          aria-label={`Read the ${project.name} case study`}
+        <div
+          className="showcase-track"
+          style={{
+            transform: `translate3d(-${position * 100}%, 0, 0)`,
+            transition: !animated || reducedMotion ? "none" : undefined,
+          }}
+          onTransitionEnd={finishTransition}
+          onTransitionCancel={finishTransition}
         >
-          <div className="showcase-browser">
-            <i />
-            <i />
-            <i />
-            <span>{project.name}</span>
-            <b aria-hidden="true">↗</b>
-          </div>
-          {front && (
-            <Image
-              src={front.src}
-              alt={front.alt}
-              priority={selected === 0}
-              sizes="(min-width: 1024px) 560px, 85vw"
-            />
-          )}
-        </Link>
-        <span className="showcase-sticker">
-          Made for
-          <br />
-          <strong>Shopify.</strong>
-        </span>
+          {slides.map((item, index) => {
+            const [front, back] = item.screenshots;
+            const active = index === position;
+            return (
+              <div
+                className="showcase-slide"
+                key={`${index}-${item.slug}`}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${((index - 1 + projects.length) % projects.length) + 1} of ${projects.length}: ${item.name}`}
+                aria-hidden={!active}
+                inert={!active}
+              >
+                <div className="showcase-stack">
+                  {back && (
+                    <div
+                      className="showcase-window showcase-back"
+                      aria-hidden="true"
+                    >
+                      <div className="showcase-browser">
+                        <i />
+                        <i />
+                        <i />
+                      </div>
+                      <Image
+                        src={back.src}
+                        alt=""
+                        sizes="(min-width: 1024px) 420px, 60vw"
+                      />
+                    </div>
+                  )}
+                  <Link
+                    href={`/projects/${item.slug}`}
+                    className="showcase-window showcase-front"
+                    aria-label={`Read the ${item.name} case study`}
+                  >
+                    <div className="showcase-browser">
+                      <i />
+                      <i />
+                      <i />
+                      <span>{item.name}</span>
+                      <b aria-hidden="true">↗</b>
+                    </div>
+                    {front && (
+                      <Image
+                        src={front.src}
+                        alt={front.alt}
+                        priority={index === 1}
+                        sizes="(min-width: 1024px) 560px, 85vw"
+                      />
+                    )}
+                  </Link>
+                  <span className="showcase-sticker">
+                    Made for
+                    <br />
+                    <strong>Shopify.</strong>
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="showcase-timer" aria-hidden="true">
+        <span key={`${selected}-${running}`} data-running={running} />
       </div>
       <div className="showcase-bottom">
         <div aria-live={shouldPlay ? "off" : "polite"}>
@@ -181,6 +319,7 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
           <Link href={`/projects/${project.slug}`}>
             {project.name} <span aria-hidden="true">↗</span>
           </Link>
+          <span className="showcase-status">{status}</span>
         </div>
         <div className="showcase-controls">
           <button

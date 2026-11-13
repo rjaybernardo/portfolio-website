@@ -63,6 +63,7 @@ export function DeliveryShowcase() {
         ))}
       </div>
       <div
+        key={step.label}
         id="pipeline-panel"
         role="tabpanel"
         aria-labelledby={`pipeline-tab-${selected}`}
