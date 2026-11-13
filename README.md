@@ -33,7 +33,7 @@ Actual screenshots of the production build, updated November 13, 2026.
 - Interactive CI/CD project walkthrough with source excerpts and a verified GitHub quality-check run.
 - RGB Leather theme showcase and a skills browser that links tools to project evidence.
 - Direct email and LinkedIn links, plus an email-copy control.
-- Responsive layouts, visible keyboard focus, reduced-motion support, and a generated social-sharing image.
+- Responsive layouts with 16 px body copy, 14 px supporting text, labels at least 12 px, visible keyboard focus, reduced-motion support, and a generated social-sharing image.
 - Case studies covering the problem, features, implementation, screenshots, stack, and access scopes.
 
 ## Content

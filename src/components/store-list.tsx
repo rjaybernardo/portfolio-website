@@ -51,12 +51,12 @@ export async function StoreList() {
                   href={store.repo_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative z-10 shrink-0 rounded-md border border-line bg-surface px-1.5 py-0.5 font-mono text-[11px] text-muted transition-colors hover:border-accent hover:text-accent"
+                  className="relative z-10 shrink-0 rounded-md border border-line bg-surface px-1.5 py-0.5 font-mono text-xs text-muted transition-colors hover:border-accent hover:text-accent"
                 >
                   Code ↗
                 </a>
               ) : (
-                store.period && <span className="shrink-0 font-mono text-[11px] text-muted">{store.period}</span>
+                store.period && <span className="shrink-0 font-mono text-xs text-muted">{store.period}</span>
               )}
             </span>
             <span className="block truncate text-xs text-muted">

@@ -83,7 +83,7 @@ export function SkillsInPractice() {
             </Link>
           ))}
           <p className="evidence-footnote">
-            Project examples, rather than skill ratings.
+            Each example links to source code or a case study.
           </p>
         </div>
       </div>

@@ -15,7 +15,8 @@ The introduction should tell visitors what Raphael works on and that he is open 
 - Charcoal `#262c25`: primary text.
 - Muted green gray `#62695e`: supporting text.
 - Terracotta `#b34120`: links, actions, and restrained emphasis.
-- Geist for headings and text; Geist Mono for small project labels.
+- Geist for headings and text; Geist Mono for project labels.
+- Body copy: 1rem (16 px at default settings); supporting text and controls: .875rem (14 px); short labels: .75rem (12 px) minimum. Do not shrink mobile copy below these sizes to fit the layout. Allow wrapping or change the layout.
 
 Use oversized personal typography, italic serif accents, layered project screenshots, peach and sage surfaces, rounded controls, and clear spacing. Avoid falling back to a plain two-column introduction. Keep project browsing and contact easy. Use subtle, reduced-motion-aware interactions to explore actual work. Respect keyboard navigation and reduced-motion preferences.
 

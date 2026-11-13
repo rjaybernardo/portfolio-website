@@ -40,7 +40,7 @@ export function ProjectVisual({
   const rows = fill ? sampleDiff.slice(0, 2) : sampleDiff;
   return (
     <div
-      className={`${frame} flex flex-col justify-center gap-1.5 bg-accent-soft font-mono ${fill ? "p-3 text-[10px]" : "gap-2 p-5 text-[11px] sm:p-8 sm:text-xs"}`}
+      className={`${frame} flex flex-col justify-center gap-1.5 bg-accent-soft font-mono ${fill ? "p-3 text-xs" : "gap-2 p-5 text-sm sm:p-8 sm:text-xs"}`}
     >
       {!fill && <p className="mb-1 text-muted">Preview · vendor = &quot;RGB Leather&quot; · −20 %, round to .99</p>}
       {rows.map((row) => (
