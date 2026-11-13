@@ -1,6 +1,6 @@
 # Raphael Jay Bernardo — Shopify Developer
 
-**Commerce, engineered.** A personal portfolio for Shopify apps, storefronts, and integrations, built with Next.js 16 (Cache Components), Tailwind CSS 4, and Neon Postgres. Deployed on Vercel.
+A personal portfolio for Shopify apps, storefronts, and integrations, built with Next.js 16 (Cache Components), Tailwind CSS 4, and Neon Postgres. Deployed on Vercel.
 
 [Live portfolio](https://portfolio-website-gules-mu-98.vercel.app) · [LinkedIn](https://www.linkedin.com/in/raphael-jay-bernardo-4b7906355/) · [Brand guide](docs/brand.md)
 
@@ -8,7 +8,7 @@
 
 Actual screenshots of the production build, updated November 13, 2026.
 
-![Desktop portfolio: Commerce, engineered, with an interactive Shopify workflow visualization](docs/screenshots/portfolio-desktop.png)
+![Light-theme Shopify developer portfolio with an introduction and featured project](docs/screenshots/portfolio-desktop.png)
 
 <details>
 <summary>Project explorer and mobile previews</summary>
@@ -21,10 +21,9 @@ Actual screenshots of the production build, updated November 13, 2026.
 
 ## Features
 
-- Full-name branding, graphite and ivory surfaces, and an ember accent.
-- Interactive visualizations of discount, shipping, and returns workflows; these are illustrative, not live store data.
+- A simple light theme, full-name introduction, featured project, and clear contact links.
 - Five-project explorer with screenshot selection, keyboard-accessible tabs, and links to case studies and source code.
-- Quick navigation via **Ctrl/Cmd + K**, native dialog focus handling, and an email-copy control.
+- Direct email and LinkedIn links, plus an email-copy control.
 - Responsive layouts, visible keyboard focus, reduced-motion support, and a generated social-sharing image.
 - Case studies covering the problem, features, implementation, screenshots, stack, and access scopes.
 

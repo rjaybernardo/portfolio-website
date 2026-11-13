@@ -1,32 +1,24 @@
 # Raphael Jay Bernardo
 
-**Shopify Developer**  
-**Commerce, engineered.**
+**Shopify Developer**
 
-## Positioning
+## Direction
 
-A developer who connects merchant workflows, storefront experiences, and the systems behind them. Lead with the merchant problem and explain the engineering decisions that make the solution useful.
+Keep the portfolio simple, personal, and focused on finding work. Use the full name and role. No initials logo, grand slogan, or promise of business results.
 
-Use the full name as the primary identity. Do not abbreviate it into an invented initials logo. The small browser icon is an abstract code-and-energy symbol; it is a navigation asset, not a replacement for the name.
+The introduction should tell visitors what Raphael works on and that he is open to a role. Let projects, screenshots, and source code demonstrate the skills.
 
-## Visual identity
+## Visual style
 
-- Graphite `#111211`: primary canvas.
-- Warm ivory `#efeee7`: primary typography.
-- Ember `#ff9a62`: actions, connection points, and emphasis.
-- Sage gray `#a2a69b`: supporting text.
-- Geist: headlines and body copy; Geist Mono: technical labels.
+- Warm white `#fcfbf8`: page background.
+- White `#ffffff`: project and content surfaces.
+- Charcoal `#262c25`: primary text.
+- Muted green gray `#62695e`: supporting text.
+- Terracotta `#a4472b`: links, actions, and restrained emphasis.
+- Geist for headings and text; Geist Mono for small project labels.
 
-Use large, tightly spaced typography, structured layouts, thin borders, and restrained system diagrams. Motion should explain connections or acknowledge interactions. Support reduced motion and keyboard navigation.
+Use readable type, clear spacing, and familiar navigation. Keep project browsing and contact easy. Respect keyboard navigation and reduced-motion preferences.
 
-## Voice and evidence
+## Writing
 
-Direct, specific, calm, and technically clear. Show the work before making a claim. Use project screenshots, source repositories, documented safeguards, and implementation details. Do not invent revenue improvements, client names, experience dates, or production usage.
-
-The interactive hero visualizes documented app workflows; it is not a live integration or a production dashboard. The bulk editor preview uses clearly labeled sample data.
-
-## Useful lines
-
-- Commerce, engineered.
-- Complex behind the scenes. Effortless for the merchant.
-- Designed for merchants. Built for the details.
+Plain and honest. Prefer “Shopify Developer,” “Projects I've built,” and “Open to work” over marketing language. Avoid claims of seniority, expertise, revenue improvements, or production scale without evidence. Clearly label sample screenshots or data.
