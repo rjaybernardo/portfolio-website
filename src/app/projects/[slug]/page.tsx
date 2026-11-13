@@ -25,8 +25,9 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
   const [hero, ...rest] = project.screenshots;
 
   return (
-    <article id="main" className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-      <Link href="/" className="inline-flex items-center rounded-xl border border-line bg-surface px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent hover:text-foreground">
+    <main id="main" className="case-study mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
+      <div className="case-topbar"><Link href="/" className="name-mark">Raphael Jay Bernardo<span>Shopify Developer / Apps & storefronts</span></Link><a href="/#contact" className="text-link">Let’s talk ↗</a></div>
+      <Link href="/#work" className="inline-flex items-center rounded-xl border border-line bg-surface px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent hover:text-foreground">
         ← All projects
       </Link>
 
@@ -37,7 +38,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         <div className="mt-6 flex flex-wrap gap-3">
           <a
             href={project.repo}
-            className="rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-strong"
+            className="rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-accent-strong"
           >
             View the code ↗
           </a>
@@ -138,6 +139,6 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         </span>
         <span className="text-2xl text-accent transition-transform group-hover:translate-x-1">→</span>
       </Link>
-    </article>
+    </main>
   );
 }

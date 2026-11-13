@@ -1,10 +1,38 @@
-# portfolio-website
+# Raphael Jay Bernardo — Shopify Developer
 
-Shopify developer portfolio built with Next.js 16 (Cache Components), Tailwind CSS 4 and Neon Postgres, deployed on Vercel.
+**Commerce, engineered.** A personal portfolio for Shopify apps, storefronts, and integrations, built with Next.js 16 (Cache Components), Tailwind CSS 4, and Neon Postgres. Deployed on Vercel.
 
-- **Apps**: the four Shopify apps live in `src/lib/projects.ts`, with screenshots in `src/content/screenshots/`. Each has a case-study page at `/projects/<slug>`.
+[Live portfolio](https://portfolio-website-gules-mu-98.vercel.app) · [LinkedIn](https://www.linkedin.com/in/raphael-jay-bernardo-4b7906355/) · [Brand guide](docs/brand.md)
+
+## Preview
+
+Actual screenshots of the production build, updated November 13, 2026.
+
+![Desktop portfolio: Commerce, engineered, with an interactive Shopify workflow visualization](docs/screenshots/portfolio-desktop.png)
+
+<details>
+<summary>Project explorer and mobile previews</summary>
+
+![Project explorer with app screenshots and engineering details](docs/screenshots/portfolio-projects.png)
+
+<img src="docs/screenshots/portfolio-mobile.png" width="390" alt="Responsive portfolio on a mobile viewport" />
+
+</details>
+
+## Features
+
+- Full-name branding, graphite and ivory surfaces, and an ember accent.
+- Interactive visualizations of discount, shipping, and returns workflows; these are illustrative, not live store data.
+- Five-project explorer with screenshot selection, keyboard-accessible tabs, and links to case studies and source code.
+- Quick navigation via **Ctrl/Cmd + K**, native dialog focus handling, and an email-copy control.
+- Responsive layouts, visible keyboard focus, reduced-motion support, and a generated social-sharing image.
+- Case studies covering the problem, features, implementation, screenshots, stack, and access scopes.
+
+## Content
+
+- **Apps**: the five Shopify apps live in `src/lib/projects.ts`, with screenshots in `src/content/screenshots/`. Each has a case-study page at `/projects/<slug>`.
 - **How I work**: process steps and toolkit in `src/lib/process.ts`.
-- **Stores**: the "Stores I've worked on recently" section is read from the `stores` table in Neon.
+- **Stores**: store work is read from the `stores` table in Neon; the section stays hidden when no published stores are available.
 - **Name, intro, contact links**: `src/lib/site.ts`.
 
 ## Setup
