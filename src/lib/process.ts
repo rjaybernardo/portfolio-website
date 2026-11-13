@@ -80,6 +80,6 @@ export const toolkit = [
   },
   {
     group: "Tools & workflow",
-    items: ["Git & GitHub", "Vitest", "Vercel", "Figma to Shopify", "Core Web Vitals", "SEO", "GA4 & GTM"],
+    items: ["Git & GitHub", "GitHub Actions", "CI/CD", "Theme Check", "Node.js tests", "Vitest", "Vercel", "Figma to Shopify", "Core Web Vitals", "SEO", "GA4 & GTM"],
   },
 ];
