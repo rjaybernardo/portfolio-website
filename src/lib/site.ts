@@ -9,6 +9,6 @@ export const site = {
   photo: null as string | null,
   // Set these to show them in the contact section.
   email: "raphaeljaybernardo@gmail.com",
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/in/raphael-jay-bernardo-4b7906355/",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 };
