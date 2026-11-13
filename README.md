@@ -21,7 +21,8 @@ Actual screenshots of the production build, updated November 13, 2026.
 
 ## Features
 
-- A simple light theme, full-name introduction, featured project, and clear contact links.
+- An expressive light theme, oversized personal introduction, layered app previews, and clear contact links.
+- Featured screenshot carousel with previous/next controls and reduced-motion-aware pointer movement.
 - Five-project explorer with screenshot selection, keyboard-accessible tabs, and links to case studies and source code.
 - Direct email and LinkedIn links, plus an email-copy control.
 - Responsive layouts, visible keyboard focus, reduced-motion support, and a generated social-sharing image.

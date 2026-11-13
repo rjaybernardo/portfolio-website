@@ -4,20 +4,20 @@
 
 ## Direction
 
-Keep the portfolio simple, personal, and focused on finding work. Use the full name and role. No initials logo, grand slogan, or promise of business results.
+Keep the wording straightforward, personal, and focused on finding work. The visual design should be modern and distinctive while staying light. Use the full name and role. No initials logo, grand slogan, or promise of business results.
 
 The introduction should tell visitors what Raphael works on and that he is open to a role. Let projects, screenshots, and source code demonstrate the skills.
 
 ## Visual style
 
-- Warm white `#fcfbf8`: page background.
+- Warm white `#f9f8f4`: page background.
 - White `#ffffff`: project and content surfaces.
 - Charcoal `#262c25`: primary text.
 - Muted green gray `#62695e`: supporting text.
-- Terracotta `#a4472b`: links, actions, and restrained emphasis.
+- Terracotta `#b34120`: links, actions, and restrained emphasis.
 - Geist for headings and text; Geist Mono for small project labels.
 
-Use readable type, clear spacing, and familiar navigation. Keep project browsing and contact easy. Respect keyboard navigation and reduced-motion preferences.
+Use oversized personal typography, italic serif accents, layered project screenshots, peach and sage surfaces, rounded controls, and clear spacing. Avoid falling back to a plain two-column introduction. Keep project browsing and contact easy. Use subtle, reduced-motion-aware interactions to explore actual work. Respect keyboard navigation and reduced-motion preferences.
 
 ## Writing
 
