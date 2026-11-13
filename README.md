@@ -25,10 +25,22 @@ Actual screenshots of the production build, updated November 13, 2026.
 
 </details>
 
+<details>
+<summary>Dark theme previews</summary>
+
+![Dark theme desktop with warm charcoal surfaces and peach accents](docs/screenshots/portfolio-dark-desktop.png)
+
+![Dark theme skills browser](docs/screenshots/portfolio-dark-skills.png)
+
+<img src="docs/screenshots/portfolio-dark-mobile.png" width="390" alt="Dark theme on mobile with the theme switch in the header" />
+
+</details>
+
 ## Features
 
 - An expressive light theme, oversized personal introduction, layered app previews, and clear contact links.
-- Featured screenshot carousel with previous/next controls and reduced-motion-aware pointer movement.
+- Featured banner autoplay every six seconds, pause/play and previous/next controls, hover/focus pauses, and reduced-motion support.
+- Light/dark theme toggle on the homepage and case studies, with a remembered choice and light default.
 - Five-project explorer with screenshot selection, keyboard-accessible tabs, and links to case studies and source code.
 - Interactive CI/CD project walkthrough with source excerpts and a verified GitHub quality-check run.
 - RGB Leather theme showcase and a skills browser that links tools to project evidence.

@@ -23,3 +23,11 @@ Use oversized personal typography, italic serif accents, layered project screens
 ## Writing
 
 Plain and honest. Prefer “Shopify Developer,” “Projects I've built,” and “Open to work” over marketing language. Avoid claims of seniority, expertise, revenue improvements, or production scale without evidence. Clearly label sample screenshots or data.
+
+## Theme choice and motion
+
+Light remains the default. Visitors can switch to a warm charcoal palette using the header toggle; the choice persists across reloads and case studies. Both palettes share the same layout, readable type sizes, and project evidence. Actual project screenshots keep their original colors.
+
+Apply the saved theme before the page paints. Theme controls must remain keyboard accessible, work without browser storage, and synchronize across tabs.
+
+The featured banner advances every six seconds, with an explicit pause/play control. Hover pauses rotation temporarily; focusing project content or using the manual arrows stops rotation until the visitor restarts it. Disable automatic rotation by default when reduced motion is requested, and suspend its timer in background tabs.

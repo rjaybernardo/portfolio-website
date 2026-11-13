@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/components/theme-toggle";
 import Image from "next/image";
 import themeScreenshot from "@/content/screenshots/rgb-leather-home.jpg";
 import { DeliveryShowcase } from "@/components/delivery-showcase";
@@ -40,14 +41,17 @@ export default function Home() {
           Raphael Jay Bernardo
           <span>Shopify Developer / Apps & storefronts</span>
         </a>
-        <nav aria-label="Main navigation">
-          <a href="#work">Work</a>
-          <a href="#skills">Skills</a>
-          <a href="#about">About</a>
-          <a href="#contact">
-            Contact <span aria-hidden>↗</span>
-          </a>
-        </nav>
+        <div className="header-tools">
+          <nav aria-label="Main navigation">
+            <a href="#work">Work</a>
+            <a href="#skills">Skills</a>
+            <a href="#about">About</a>
+            <a href="#contact">
+              Contact <span aria-hidden>↗</span>
+            </a>
+          </nav>
+          <ThemeToggle />
+        </div>
       </header>
       <main id="main">
         <section className="hero page-width">
